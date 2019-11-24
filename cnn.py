@@ -93,6 +93,7 @@ classifier.compile(optimizer=sgd, loss = 'categorical_crossentropy', metrics = [
 classifier.fit_generator( training_set,
     steps_per_epoch = 19118,
     epochs = 25,
+    workers = 6,
     validation_data = test_set,
     validation_steps = 4791)
 
