@@ -84,19 +84,27 @@ classifier.add(Dense(units = 128, activation = 'relu'))
 
 classifier.add(Dense(units = num_classes, activation = 'softmax'))
 
+sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+
 # Compiling the CNN
-classifier.compile(optimizer = 'sgd',loss = 'categorical_crossentropy', metrics = ['accuracy'])
+classifier.compile(optimizer=sgd, loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
 
 classifier.fit_generator( training_set,
     steps_per_epoch = 19118,
     epochs = 1,
     validation_data = test_set,
-    validation_steps = 4266)
+    validation_steps = 4791)
 
 
 import joblib
 
-model = 'classifier_cnn.jb'
+model = 'cnn_classifier.jb'
 
 joblib.dump(classifier, model)
+
+
+import pickle
+
+with open('cnn_classifier.pkl', 'wb') as f:
+    pickle.dump(classifier, f)
